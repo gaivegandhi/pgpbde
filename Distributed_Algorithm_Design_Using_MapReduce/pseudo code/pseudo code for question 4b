@@ -1,0 +1,93 @@
+Pseudo Code:
+------------
+
+MAP_TOTAL_PIZZA_SOLD_CATEGORIZED_BY_SIZE (Key, Value)
+
+START
+
+LS = Split (Value, “\t”)
+
+SIZE = LS[7]
+
+ORDER_EVENT = LS[11]
+
+IF ( SIZE == “S” AND ORDER_EVENT == “Delivered” )
+
+Write (Small_Pizza_Sold, 1)
+
+ELSE IF ( SIZE == “R” AND ORDER_EVENT == “Delivered” )
+
+Write (Regular_Pizza_Sold, 1)
+
+ELSE IF ( SIZE == “M” AND ORDER_EVENT == “Delivered” )
+
+Write (Medium_Pizza_Sold, 1)
+
+ELSE IF ( SIZE == “L” AND ORDER_EVENT == “Delivered” )
+
+Write (Large_Pizza_Sold, 1)
+
+END   
+
+
+REDUCE_TOTAL_PIZZA_SOLD_CATEGORIZED_BY_SIZE (Key, ValueList)
+
+START
+
+Count = 0
+
+FOR i = 1 To ValueList.length
+
+Count = Count + 1
+
+Write (Key, Count)
+
+END
+
+
+Explanation For Map:
+--------------------
+
+01. A transaction record is stored in Value. 
+
+02. The Split function extracts 12 values out of the record using a tab delimiter and stores these values in a List LS.
+
+03. The information regarding the Size of the Pizza is available at LS[7]. 
+
+04. It is presumed that there are 04 Sizes of Pizza. S is Small, R is Regular, M is Medium and L is Large.
+
+05. The information on ORDER_EVENT is available at LS[11].
+
+06. If SIZE is S and ORDER_EVENT is Delivered then the output is written using a Write function. Small_Pizza_Sold is the Key and 1 is the Value.
+
+07. If SIZE is R and ORDER_EVENT is Delivered then the output is written using a Write function. Regular_Pizza_Sold is the Key and 1 is the Value.
+
+08. If SIZE is M and ORDER_EVENT is Delivered then the output is written using a Write function. Medium_Pizza_Sold is the Key and 1 is the Value.
+
+09. If SIZE is L and ORDER_EVENT is Delivered then the output is written using a Write function. Large_Pizza_Sold is the Key and 1 is the Value.
+
+10. It is presumed that the ORDER_EVENT could have multiple values like Placed, Initiated, On The Way, Cancelled And Delivered. 
+
+11. The Delivered status will ensure that the Pizza is sold as a Delivered status cannot be changed to Cancelled. 
+
+12. At all other stages, the ORDER_EVENT could be changed to Cancelled.
+
+13. The output of this MAP will be aggregated and provided as input to the REDUCE. 
+
+14. For example, the output of the MAP would be (Small_Pizza_Sold, 1), (Small_Pizza_Sold, 1), (Regular_Pizza_Sold, 1), (Medium_Pizza_Sold, 1), (Large_Pizza_Sold, 1), (Large_Pizza_Sold, 1)
+
+15. The aggregated result will be (Small_Pizza_Sold, {1,1}), (Regular_Pizza_Sold, {1}), (Medium_Pizza_Sold, {1}), (Large_Pizza_Sold, {1,1}) 
+
+
+Explanation For Reduce:
+-----------------------
+
+01. The input to the REDUCE would be the aggregated output of the MAP. 
+
+02. For example, (Small_Pizza_Sold, {1,1}), (Regular_Pizza_Sold, {1}), (Medium_Pizza_Sold, {1}) and (Large_Pizza_Sold, {1,1}) 
+
+03. The REDUCE will loop through the ValueList and will count the total items in the list.
+
+04. The output of the REDUCE will be Key and Count. 
+
+05. For example, (Small_Pizza_Sold, 2), (Regular_Pizza_Sold, 1), (Medium_Pizza_Sold, 1) and (Large_Pizza_Sold, 2)

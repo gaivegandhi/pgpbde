@@ -1,0 +1,48 @@
+Pseudo Code:
+------------
+
+MAP_TOTAL_SMALL_CHEESE_BURST_PIZZA_SOLD (Key, Value)
+
+START
+
+LS = Split (Value, “\t”)
+
+IS_CHEESE_BURST = LS[6]
+
+SIZE = LS[7]
+
+ORDER_EVENT = LS[11]
+
+IF ( IS_CHEESE_BURST == “Y”  AND  SIZE == “S” AND
+
+ORDER_EVENT == ”Delivered” )
+
+getCounter(“SMALL_CHEESE_BURST_SOLD”).incrementBy(1)
+
+END
+
+
+Explanation:
+------------
+
+01. A transaction record is stored in Value. 
+
+02. The Split function extracts 12 values out of the record using a tab delimiter and stores these values in a List LS.
+
+03. The information whether a Pizza is Cheese Burst or Not is available at LS[6].
+
+04. The information regarding the Size of the Pizza is available at LS[7]. 
+
+05. It is presumed that there are 04 Sizes of Pizza. S is Small, R is Regular, M is Medium and L is Large.
+
+06. The information on ORDER_EVENT is available at LS[11].
+
+07. A global counter variable SMALL_CHEESE_BURST_SOLD is created.
+
+08. The SMALL_CHEESE_BURST_SOLD global counter variable is inremented if IS_CHEESE_BURST is Y, SIZE is S and ORDER_EVENT is Delivered.
+
+09. It is presumed that the ORDER_EVENT could have multiple values like Placed, Initiated, On The Way, Cancelled And Delivered. 
+
+10. The Delivered status will ensure that the Pizza is sold as a Delivered status cannot be changed to Cancelled. 
+
+11. At all other stages, the ORDER_EVENT could be changed to Cancelled.

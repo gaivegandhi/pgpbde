@@ -1,0 +1,46 @@
+Pseudo Code:
+------------
+
+MAP_TOTAL_VEG_AND_NON_VEG_PIZZA_SOLD (Key, Value)
+
+START
+
+LS = Split (Value, “\t”)
+
+IS_VEG = LS[12]
+
+ORDER_EVENT = LS[11]
+
+IF ( IS_VEG == “Y”  AND ORDER_EVENT == “Delivered” )
+
+getCounter(“VEG_PIZZA_SOLD”).incrementBy(1)
+
+ELSE IF (IS_VEG == “N” AND ORDER_EVENT == “Delivered”)
+
+getCounter(“NON­VEG_PIZZA_SOLD”).incrementBy(1)
+
+ENDMAP
+
+
+Explanation:
+------------
+
+01. A transaction record is stored in Value. 
+
+02. The Split function extracts 12 values out of the record using a tab delimiter and stores these values in a List LS.
+
+03. The information whether a Pizza is Veg or Non-Veg is available at LS[12]. 
+
+04. The information on ORDER_EVENT is available at LS[11].
+
+05. 02 global counter variables VEG_PIZZA_SOLD and NON-VEG_PIZZA_SOLD are created.
+
+06. The VEG_PIZZA_SOLD global counter variable is inremented if IS_VEG is Y and ORDER_EVENT is Delivered.
+
+07. The NON-VEG_PIZZA_SOLD global counter variable is inremented if IS_VEG is N and ORDER_EVENT is Delivered.
+
+08. It is presumed that the ORDER_EVENT could have multiple values like Placed, Initiated, On The Way, Cancelled And Delivered. 
+
+09. The Delivered status will ensure that the Pizza is sold as a Delivered status cannot be changed to Cancelled. 
+
+10. At all other stages, the ORDER_EVENT could be changed to Cancelled.

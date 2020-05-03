@@ -1,0 +1,83 @@
+Pseudo Code:
+------------
+
+MAP_TOTAL_SMALL_CHEESE_BURST_PIZZA_SOLD (Key, Value)
+
+START
+
+LS = Split (Value, “\t”)
+
+IS_CHEESE_BURST = LS[6]
+
+SIZE = LS[7]
+
+ORDER_EVENT = LS[11]
+
+IF ( IS_CHEESE_BURST == “Y”  AND  SIZE == “S” AND
+
+ORDER_EVENT== ”Delivered” )
+
+Write (Small_Cheese_Burst_Pizza_Sold, 1)
+
+END
+
+
+REDUCE_ TOTAL_SMALL_CHEESE_BURST_PIZZA_SOLD (Key, ValueList)
+
+START
+
+Count = 0
+
+FOR i = 1 To ValueList.length
+
+Count = Count + 1
+
+Write (Key, Count)
+
+END
+
+
+Explanation For Map:
+--------------------
+
+01. A transaction record is stored in Value. 
+
+02. The Split function extracts 12 values out of the record using a tab delimiter and stores these values in a List LS.
+
+03. The information whether a Pizza is Cheese Burst or Not is available at LS[6].
+
+04. The information regarding the Size of the Pizza is availableat LS[7]. 
+
+05. It is presumed that there are 04 Sizes of Pizza. S is Small, R is Regular, M is Medium and L is Large.
+
+06. The information on ORDER_EVENT is available at LS[11].
+
+07. If IS_CHEESE_BURST is Y, SIZE is S and ORDER_EVENT is Delivered then the output is written using a Write function. 
+
+08. Small_Cheese_Burst_Pizza_Sold is the Key and 1 is the Value.
+
+09. It is presumed that the ORDER_EVENT could have multiple values like Placed, Initiated, On The Way, Cancelled And Delivered. 
+
+10. The Delivered status will ensure that the Pizza is sold as a Delivered status cannot be changed to Cancelled. 
+
+11. At all other stages, the ORDER_EVENT could be changed to Cancelled.
+
+12. The output of this MAP will be aggregated and provided as input to the REDUCE. 
+
+13. For example, the output of the MAP would be (Small_Cheese_Burst_Pizza_Sold, 1), (Small_Cheese_Burst_Pizza_Sold, 1)
+
+14. The aggregated result will be (Small_Cheese_Burst_Pizza_Sold,{1,1})
+
+
+Explanation For Reduce:
+-----------------------
+
+01. The input to the REDUCE would be the aggregated output of the MAP. 
+
+02. For example, (Small_Cheese_Burst_Pizza_Sold, {1,1}) 
+
+03. The REDUCE will loop through the ValueList and will count the total items in the list.
+
+04. The output of the REDUCE will be Key and Count. 
+
+05. For example, (Small_Cheese_Burst_Pizza_Sold, 2)

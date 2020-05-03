@@ -1,0 +1,75 @@
+Pseudo Code:
+------------
+
+MAP_TOTAL_VEG_AND_NON_VEG_PIZZA_SOLD (Key, Value)
+
+START
+
+LS = Split (Value, “\t”)
+
+IS_VEG = LS[12]
+
+ORDER_EVENT = LS[11]
+
+IF ( IS_VEG == “Y”  AND ORDER_EVENT == “Delivered” )
+
+Write (Veg_Pizza_Sold, 1)
+
+ELSE IF (IS_VEG == “N” AND ORDER_EVENT == “Delivered” )
+
+Write (Non­Veg_Pizza_Sold, 1)
+
+ENDMAP
+
+
+REDUCE_TOTAL_VEG_AND_NON_VEG_PIZZA_SOLD (Key, ValueList)
+
+START
+
+Count = 0
+
+FOR i = 1 To ValueList.length
+
+Count = Count + 1
+
+Write (Key, Count)
+
+END
+
+
+Explanation For Map:
+--------------------
+
+01. A transaction record is stored in Value. 
+
+02. The Split function extracts 12 values out of the record using a tab delimiter and stores these values in a List LS.
+
+03. The information whether a Pizza is Veg or Non­Veg is available at LS[12]. 
+
+04. The information on ORDER_EVENT is available at LS[11].
+
+05. If IS_VEG is Y and ORDER_EVENT is Delivered then the output is written using a Write function. Veg_Pizza_Sold is the Key and 1 is the Value.
+
+06. If IS_VEG is N and ORDER_EVENT is Delivered then the output is written using a Write function. Non­Veg_Pizza_Sold is the Key and 1 is the Value.
+
+07. It is presumed that the ORDER_EVENT could have multiple values like Placed, Initiated, On The Way, Cancelled And Delivered. 
+
+08. The Delivered status will ensure that the Pizza is sold as a Delivered status cannot be changed to Cancelled. 
+
+09. At all other stages, the ORDER_EVENT could be changed to Cancelled.
+
+10. The output of this MAP will be aggregated and provided as input to REDUCE. 
+
+11. For example, the output of the MAP would be (Veg_Pizza_Sold, 1), (Veg_Pizza_Sold, 1),(Veg_Pizza_Sold, 1), (Non­Veg_Pizza_Sold, 1).
+
+12. The aggregated result will be (Veg_Pizza_Sold, {1,1,1}) and (Non­Veg_Pizza_Sold, {1})
+
+
+Explanation For Reduce:
+-----------------------
+
+01. The input to the REDUCE would be the aggregated output of the MAP. For example, (Veg_Pizza_Sold, {1,1,1}) and (Non­Veg_Pizza_Sold, {1})
+
+02. The REDUCE will loop through the ValueList and will count the total items in the list.
+
+03. The output of the REDUCE will be Key and Count. For example, (Veg_Pizza_Sold, 3) and (Non­Veg_Pizza_Sold, 1)
