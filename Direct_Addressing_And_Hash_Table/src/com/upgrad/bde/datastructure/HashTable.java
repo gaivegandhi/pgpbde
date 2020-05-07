@@ -75,7 +75,7 @@ public class HashTable {
 		
 	}
 	
-	protected static EVM[] getEVMHashTable() {
+	static EVM[] getEVMHashTable() {
 		
 		return evmHashTable;
 		
@@ -445,7 +445,7 @@ public class HashTable {
 	}
 	
 	
-	private static int getNextPrime(int number) {
+	static int getNextPrime(int number) {
 		
 		try {
 			

@@ -62,13 +62,13 @@ public class VoteCount{
 	
 	}
 	
-	protected VoteCount getNext() {
+	VoteCount getNext() {
 		
 		return this.next;
 		
 	}
 	
-	protected void setNext(VoteCount next) {
+	void setNext(VoteCount next) {
 		
 		this.next = next;
 		

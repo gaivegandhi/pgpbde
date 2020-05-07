@@ -96,7 +96,7 @@ public class DirectAddressing {
 		
 	}
 	
-	protected static EVM [] getDirectAddressingArr() {
+	static EVM [] getDirectAddressingArr() {
 		
 		return directAddressingArr;
 	

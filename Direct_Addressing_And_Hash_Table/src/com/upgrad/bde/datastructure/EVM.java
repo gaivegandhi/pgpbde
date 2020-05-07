@@ -62,13 +62,13 @@ public class EVM {
     
     }
 	
-	protected EVM getNext() {
+	EVM getNext() {
 		
 		return this.next;
 		
 	}
 	
-	protected void setNext(EVM next) {
+	void setNext(EVM next) {
 		
 		this.next = next;
 		
