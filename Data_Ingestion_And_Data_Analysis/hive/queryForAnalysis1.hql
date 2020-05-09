@@ -1,0 +1,6 @@
+SELECT 
+State_Name, 
+ROUND(AVG(YY_Under_Five_Mortality_Rate_U5MR_Total_Person),2) AS State_Wise_Average_Child_Mortality_Rate
+FROM
+India_Annual_Health_Survey_2012_13_DB.iahs_2012_13_partitioned_orc_format 
+GROUP BY State_Name;

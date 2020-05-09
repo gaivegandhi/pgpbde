@@ -1,0 +1,6 @@
+SELECT 
+State_Name,
+ROUND(AVG(LL_Total_Fertility_Rate_Total),2) AS State_Wise_Average_Fertility_Rate
+FROM
+India_Annual_Health_Survey_2012_13_DB.iahs_2012_13_partitioned_orc_format 
+GROUP BY State_Name;
