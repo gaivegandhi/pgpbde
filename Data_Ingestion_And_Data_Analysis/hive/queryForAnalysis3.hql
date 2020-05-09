@@ -1,0 +1,4 @@
+SELECT State_Name,
+CORR(YY_Under_Five_Mortality_Rate_U5MR_Total_Person, LL_Total_Fertility_Rate_Total)
+FROM India_Annual_Health_Survey_2012_13_DB.iahs_2012_13_orc
+GROUP BY State_Name;
