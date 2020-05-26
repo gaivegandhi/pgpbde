@@ -306,7 +306,7 @@ public class ElectionCountClient {
 								
 								if (voterCount == 0) {
 									
-									System.out.println("Candidate With ID "+candidateId+" Does Not Exists.");
+									System.out.println("This Candidate ID  Does Not Exists.");
 									
 								}else {
 								
@@ -380,7 +380,15 @@ public class ElectionCountClient {
 												
 								int voterCount    = HashTable.COUNT(candidateId);
 								
-								System.out.println("For Candidate ID "+candidateId+", Total Number Of Vote(s) "+voterCount);
+								if (voterCount == 0) {
+									
+									System.out.println("This Candidate ID  Does Not Exists.");
+									
+								}else {
+								
+									System.out.println("For Candidate ID "+candidateId+", Total Number Of Vote(s) "+voterCount);
+									
+								}				
 							
 							}else {
 								
