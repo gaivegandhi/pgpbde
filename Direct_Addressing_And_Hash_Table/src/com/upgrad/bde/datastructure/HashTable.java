@@ -75,7 +75,7 @@ public class HashTable {
 		
 	}
 	
-	protected static EVM[] getEVMHashTable() {
+	static EVM[] getEVMHashTable() {
 		
 		return evmHashTable;
 		
@@ -116,8 +116,13 @@ public class HashTable {
         try {
         	
         	int index = getBucketIndex(voterId,totalEVMBucket);
-
-	        boolean isHashingRequired = (evmHTSize == (LOAD_FACTOR * totalEVMBucket) -1);
+        	
+	        float totalNoOfRecords = new Integer(evmHTSize).floatValue();
+	        float sizeOfHashTable  = new Integer(totalEVMBucket).floatValue();
+	        	        
+	        float loadFactor = (totalNoOfRecords/sizeOfHashTable);
+	        
+	        boolean isHashingRequired = (loadFactor >= LOAD_FACTOR);
 	        
 	        if (isHashingRequired) {
 	        	
@@ -301,8 +306,12 @@ public class HashTable {
 	        
 	        }
 	        
-	        boolean isHashingRequired = (voteCountHTSize == (LOAD_FACTOR * totalVoteCountBucket) -1);
+	        float totalNoOfRecords = new Integer(voteCountHTSize).floatValue();
+	        float sizeOfHashTable  = new Integer(totalVoteCountBucket).floatValue();
+	        	        
+	        float loadFactor = (totalNoOfRecords/sizeOfHashTable);
 	        
+	        boolean isHashingRequired = (loadFactor >= LOAD_FACTOR);
 	        
 	        if (isHashingRequired) {
 	        	
@@ -445,7 +454,7 @@ public class HashTable {
 	}
 	
 	
-	private static int getNextPrime(int number) {
+	static int getNextPrime(int number) {
 		
 		try {
 			
