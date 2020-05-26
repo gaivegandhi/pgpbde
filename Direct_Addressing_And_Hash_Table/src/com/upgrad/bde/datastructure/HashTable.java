@@ -161,15 +161,17 @@ public class HashTable {
 	 * <p>
 	 * The LinkedList is linearly traversed to find the corresponding record.
 	 * <p>  
-	 * The worst case run time complexity for this operation is <b> O(N) </b>. 
+	 * The worst case run time complexity for the <b> FIND() </b> operation is <b> O(1+M/N) </b>. 
 	 * <p>
 	 * The index or bucket storing the record is reached in constant time <b> O(1) </b> 
 	 * <p>
-	 * Now the LinkedList is linearly traversed to find the corresponding record. 
+	 * Now the LinkedList is linearly traversed to find the corresponding record <b> O(M/N) </b> 
 	 * <p>
-	 * The worst case run time complexity is <b> O(N) </b> if the record to be found is at the last node of the LinkedList. 
+	 * where <b> M </b> is the number of stored records and <b> N </b> is it size, i.e. the number of indices in the hash table. 
 	 * <p>
-	 * Therefore, <b> O(1) </b> + <b> O(N) </b> = <b> O(N) </b> is the worst case time complexity for the <b> FIND() </b> operation.
+	 * This is true as a constant load factor i.e 0.75 is maintained. 
+	 * <p>
+	 * Therefore, <b> O(1) </b> + <b> O(M/N) </b> = <b> O(1+M/N) </b> is the worst case time complexity for the <b> FIND() </b> operation.
 	 * <p>
 	 * @param  voterId is a 6 digit number of type <b> int </b> which acts as the <b> Key </b> for finding the record.
 	 * @return candidateId is a 3 digit number of type <b> short </b> which acts as the <b> Value </b> of the record. 
@@ -224,14 +226,17 @@ public class HashTable {
 	 * <p>
 	 * The <b> Value (voterCount) </b> is incremented by 1 for the existing record found during linear traversal.
 	 * <p>
-	 * The worst case run time complexity for this operation is <b> O(N) </b>. 
+	 * The worst case run time complexity for the <b> COUNT() </b> operation is <b> O(1+M/N) </b>. 
 	 * <p>
 	 * The index or bucket holding the record is reached in constant time <b> O(1) </b> 
 	 * <p>
-	 * The LinkedList is linearly traversed to find the record which is <b> O(N) </b> if the record to be found is 
-	 * at the last node of the LinkedList. 
+	 * The LinkedList is linearly traversed to find the record which is <b> O(M/N) </b> 
 	 * <p>
-	 * Therefore, <b> O(1) </b> + <b> O(N) </b> = <b> O(N) </b> is the worst case time complexity for the <b> FIND() </b> operation.
+	 * where <b> M </b> is the number of stored records and <b> N </b> is it size, i.e. the number of indices in the hash table. 
+	 * <p>
+	 * This is true as a constant load factor i.e 0.75 is maintained. 
+	 * <p>
+	 * Therefore, <b> O(1) </b> + <b> O(M/N) </b> = <b> O(1+M/N) </b> is the worst case time complexity for the <b> COUNT() </b> operation.
 	 * <p>
 	 * @param  candidateId is a 3 digit number of type <b> short </b> which acts as the <b> Key </b> for finding the record.
 	 * @return voterCount is an <b> int </b> which represents the total votes received by a particular candidate.
